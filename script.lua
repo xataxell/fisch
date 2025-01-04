@@ -22,16 +22,26 @@ local TeleportLocations = {
         ['Mushgrove Swamp'] = CFrame.new(2434.29785, 131.983276, -691.930542, -0.123090521, -7.92820209e-09, -0.992395461, -9.05862692e-08, 1, 3.2467995e-09, 0.992395461, 9.02970569e-08, -0.123090521),
         ['Ancient Isle'] = CFrame.new(6056.02783, 195.280167, 276.270325, -0.655055285, 1.96010075e-09, 0.755580962, -1.63855578e-08, 1, -1.67997189e-08, -0.755580962, -2.33853594e-08, -0.655055285),
         ['Northern Expedition'] = CFrame.new(-1701.02979, 187.638779, 3944.81494, 0.918493569, -8.5804345e-08, 0.395435959, 8.59132356e-08, 1, 1.74328942e-08, -0.395435959, 1.7961181e-08, 0.918493569),
-        ['Overgrowth Caves'] = CFrame.new(19608.791, 131.420105, 5222.15283, 0.462794542, -2.64426987e-08, 0.886465549, -4.47066562e-08, 1, 5.31692343e-08, -0.886465549, -6.42373408e-08, 0.462794542),
+        ['Northern Summit'] = CFrame.new(19608.791, 131.420105, 5222.15283, 0.462794542, -2.64426987e-08, 0.886465549, -4.47066562e-08, 1, 5.31692343e-08, -0.886465549, -6.42373408e-08, 0.462794542),
         ['Vertigo'] = CFrame.new(-102.40567, -513.299377, 1052.07104, -0.999989033, 5.36423439e-09, 0.00468267547, 5.85247495e-09, 1, 1.04251647e-07, -0.00468267547, 1.04277916e-07, -0.999989033),
         ['Depths Entrance'] = CFrame.new(-15.4965982, -706.123718, 1231.43494, 0.0681341439, 1.15903154e-08, -0.997676194, 7.1017638e-08, 1, 1.64673093e-08, 0.997676194, -7.19745898e-08, 0.0681341439),
-        ['Depths'] = CFrame.new(491.758118, -706.123718, 1230.6377, 0.00879980437, 1.29271776e-08, -0.999961257, 1.95575205e-13, 1, 1.29276803e-08, 0.999961257, -1.13956629e-10, 0.00879980437)
+        ['Depths'] = CFrame.new(491.758118, -706.123718, 1230.6377, 0.00879980437, 1.29271776e-08, -0.999961257, 1.95575205e-13, 1, 1.29276803e-08, 0.999961257, -1.13956629e-10, 0.00879980437),
+        ['Overgrowth Caves'] = CFrame.new(19746.2676, 416.00293, 5403.5752, 0.488031536, -3.30940715e-08, -0.87282598, -3.24267696e-11, 1, -3.79341323e-08, 0.87282598, 1.85413569e-08, 0.488031536),
+        ['Frigid Cavern'] = CFrame.new(20253.6094, 756.525818, 5772.68555, -0.781508088, 1.85673343e-08, 0.623895109, 5.92671467e-09, 1, -2.23363816e-08, -0.623895109, -1.3758414e-08, -0.781508088),
+        ['Cryogenic Canal'] = CFrame.new(19958.5176, 917.195923, 5332.59375, 0.758922458, -7.29783434e-09, 0.651180983, -4.58880756e-09, 1, 1.65551253e-08, -0.651180983, -1.55522013e-08, 0.758922458),
+        ['Glacial Grotto'] = CFrame.new(20003.0273, 1136.42798, 5555.95996, 0.983130038, -3.94455064e-08, 0.182907909, 3.45229765e-08, 1, 3.0096718e-08, -0.182907909, -2.32744615e-08, 0.983130038)
+    },
+    ['Rods'] = {
+        ['Heaven Rod'] = CFrame.new(20025.0508, -467.665955, 7114.40234, -0.9998191, -2.41349773e-10, 0.0190212391, -4.76249762e-10, 1, -1.23448247e-08, -0.0190212391, -1.23516495e-08, -0.9998191),
+        ['Summit Rod'] = CFrame.new(20213.334, 736.668823, 5707.8208, -0.274440169, 3.53429606e-08, 0.961604178, -1.52819659e-08, 1, -4.11156122e-08, -0.961604178, -2.59789772e-08, -0.274440169)
     }
 }
 local ZoneNames = {}
+local RodNames = {}
 local RodColors = {}
 local RodMaterials = {}
 for i,v in pairs(TeleportLocations['Zones']) do table.insert(ZoneNames, i) end
+for i,v in pairs(TeleportLocations['Rods']) do table.insert(RodNames, i) end
 
 --// Functions
 FindChildOfClass = function(parent, classname)
@@ -104,12 +114,14 @@ if CheckFunc(hookmetamethod) then
     Modifications:Toggle('Always Catch', {location = flags, flag = 'alwayscatch'})
 end
 Modifications:Section('Client')
-Modifications:Toggle('Disable Oxygen System', {location = flags, flag = 'nooxygen'})
-Modifications:Toggle('Disable Temperature System', {location = flags, flag = 'notemperature'})
+Modifications:Toggle('Infinite Oxygen', {location = flags, flag = 'infoxygen'})
+Modifications:Toggle('No Temp & Oxygen', {location = flags, flag = 'nopeakssystems'})
 -----
 Teleports:Section('Locations')
 Teleports:Dropdown('Zones', {location = flags, flag = 'zones', list = ZoneNames})
 Teleports:Button('Teleport To Zone', function() gethrp().CFrame = TeleportLocations['Zones'][flags['zones']] end)
+Teleports:Dropdown('Rod Locations', {location = flags, flag = 'rodlocations', list = RodNames})
+Teleports:Button('Teleport To Rod', function() gethrp().CFrame = TeleportLocations['Rods'][flags['rodlocations']] end)
 -----
 Visuals:Section('Rod')
 Visuals:Toggle('Body Rod Chams', {location = flags, flag = 'bodyrodchams'})
@@ -295,15 +307,25 @@ RunService.Heartbeat:Connect(function()
     end
 
     -- Modifications
-    if flags['notemperature'] then
-        getchar()['client']['temperature'].Enabled = false
+    if flags['infoxygen'] then
+        if not getchar():FindFirstChild('DivingTank') then
+            local oxygentank = Instance.new('Decal')
+            oxygentank.Name = 'DivingTank'
+            oxygentank.Parent = workspace
+            oxygentank:SetAttribute('Tier', 1/0)
+            oxygentank.Parent = getchar()
+        end
     else
-        getchar()['client']['temperature'].Enabled = true
+        if FindChildOfType(getchar(), 'DivingTank', 'Decal') then
+            FindChildOfType(getchar(), 'DivingTank', 'Decal'):Destroy()
+        end
     end
-    if flags['nooxygen'] then
-        getchar()['client']['oxygen'].Enabled = false
+    if flags['nopeakssystems'] then
+        getchar():SetAttribute('WinterCloakEquipped', true)
+        getchar():SetAttribute('Refill', true)
     else
-        getchar()['client']['oxygen'].Enabled = true
+        getchar():SetAttribute('WinterCloakEquipped', nil)
+        getchar():SetAttribute('Refill', false)
     end
 end)
 
