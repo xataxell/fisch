@@ -11,22 +11,27 @@ local lp = Players.LocalPlayer
 local fishabundancevisible = false
 local tooltipmessage
 local TeleportLocations = {
-    ['Moosewood'] = CFrame.new(379.875458, 134.500519, 233.5495, -0.033920113, 8.13274355e-08, 0.999424577, 8.98441925e-08, 1, -7.83249803e-08, -0.999424577, 8.7135696e-08, -0.033920113),
-    ['Roslit Bay'] = CFrame.new(-1472.9812, 132.525513, 707.644531, -0.00177415239, 1.15743369e-07, -0.99999845, -9.25943056e-09, 1, 1.15759981e-07, 0.99999845, 9.46479251e-09, -0.00177415239),
-    ['Forsaken Shores'] = CFrame.new(-2491.104, 133.250015, 1561.2926, 0.355353981, -1.68352852e-08, -0.934731781, 4.69647858e-08, 1, -1.56367586e-10, 0.934731781, -4.38439116e-08, 0.355353981),
-    ['Sunstone Island'] = CFrame.new(-913.809143, 138.160782, -1133.25879, -0.746701241, 4.50330218e-09, 0.665159583, 2.84934609e-09, 1, -3.5716119e-09, -0.665159583, -7.71657294e-10, -0.746701241),
-    ['Statue of Sovereignty'] = CFrame.new(21.4017925, 159.014709, -1039.14233, -0.865476549, -4.38348664e-08, -0.500949502, -9.38435818e-08, 1, 7.46273798e-08, 0.500949502, 1.11599142e-07, -0.865476549),
-    ['Terrapin Island'] = CFrame.new(-193.434143, 135.121979, 1951.46936, 0.512723684, -6.94711346e-08, 0.858553708, 5.44089183e-08, 1, 4.84237539e-08, -0.858553708, 2.18849721e-08, 0.512723684),
-    ['Snowcap Island'] = CFrame.new(2607.93018, 135.284332, 2436.13208, 0.909039497, -7.49003748e-10, 0.4167099, 3.38659367e-09, 1, -5.59032465e-09, -0.4167099, 6.49305321e-09, 0.909039497),
-    ['Mushgrove Swamp'] = CFrame.new(2434.29785, 131.983276, -691.930542, -0.123090521, -7.92820209e-09, -0.992395461, -9.05862692e-08, 1, 3.2467995e-09, 0.992395461, 9.02970569e-08, -0.123090521),
-    ['Ancient Isle'] = CFrame.new(6056.02783, 195.280167, 276.270325, -0.655055285, 1.96010075e-09, 0.755580962, -1.63855578e-08, 1, -1.67997189e-08, -0.755580962, -2.33853594e-08, -0.655055285),
-    ['Northern Expedition'] = CFrame.new(-1701.02979, 187.638779, 3944.81494, 0.918493569, -8.5804345e-08, 0.395435959, 8.59132356e-08, 1, 1.74328942e-08, -0.395435959, 1.7961181e-08, 0.918493569),
-    ['Overgrowth Caves'] = CFrame.new(19608.791, 131.420105, 5222.15283, 0.462794542, -2.64426987e-08, 0.886465549, -4.47066562e-08, 1, 5.31692343e-08, -0.886465549, -6.42373408e-08, 0.462794542)
+    ['Zones'] = {
+        ['Moosewood'] = CFrame.new(379.875458, 134.500519, 233.5495, -0.033920113, 8.13274355e-08, 0.999424577, 8.98441925e-08, 1, -7.83249803e-08, -0.999424577, 8.7135696e-08, -0.033920113),
+        ['Roslit Bay'] = CFrame.new(-1472.9812, 132.525513, 707.644531, -0.00177415239, 1.15743369e-07, -0.99999845, -9.25943056e-09, 1, 1.15759981e-07, 0.99999845, 9.46479251e-09, -0.00177415239),
+        ['Forsaken Shores'] = CFrame.new(-2491.104, 133.250015, 1561.2926, 0.355353981, -1.68352852e-08, -0.934731781, 4.69647858e-08, 1, -1.56367586e-10, 0.934731781, -4.38439116e-08, 0.355353981),
+        ['Sunstone Island'] = CFrame.new(-913.809143, 138.160782, -1133.25879, -0.746701241, 4.50330218e-09, 0.665159583, 2.84934609e-09, 1, -3.5716119e-09, -0.665159583, -7.71657294e-10, -0.746701241),
+        ['Statue of Sovereignty'] = CFrame.new(21.4017925, 159.014709, -1039.14233, -0.865476549, -4.38348664e-08, -0.500949502, -9.38435818e-08, 1, 7.46273798e-08, 0.500949502, 1.11599142e-07, -0.865476549),
+        ['Terrapin Island'] = CFrame.new(-193.434143, 135.121979, 1951.46936, 0.512723684, -6.94711346e-08, 0.858553708, 5.44089183e-08, 1, 4.84237539e-08, -0.858553708, 2.18849721e-08, 0.512723684),
+        ['Snowcap Island'] = CFrame.new(2607.93018, 135.284332, 2436.13208, 0.909039497, -7.49003748e-10, 0.4167099, 3.38659367e-09, 1, -5.59032465e-09, -0.4167099, 6.49305321e-09, 0.909039497),
+        ['Mushgrove Swamp'] = CFrame.new(2434.29785, 131.983276, -691.930542, -0.123090521, -7.92820209e-09, -0.992395461, -9.05862692e-08, 1, 3.2467995e-09, 0.992395461, 9.02970569e-08, -0.123090521),
+        ['Ancient Isle'] = CFrame.new(6056.02783, 195.280167, 276.270325, -0.655055285, 1.96010075e-09, 0.755580962, -1.63855578e-08, 1, -1.67997189e-08, -0.755580962, -2.33853594e-08, -0.655055285),
+        ['Northern Expedition'] = CFrame.new(-1701.02979, 187.638779, 3944.81494, 0.918493569, -8.5804345e-08, 0.395435959, 8.59132356e-08, 1, 1.74328942e-08, -0.395435959, 1.7961181e-08, 0.918493569),
+        ['Overgrowth Caves'] = CFrame.new(19608.791, 131.420105, 5222.15283, 0.462794542, -2.64426987e-08, 0.886465549, -4.47066562e-08, 1, 5.31692343e-08, -0.886465549, -6.42373408e-08, 0.462794542),
+        ['Vertigo'] = CFrame.new(-102.40567, -513.299377, 1052.07104, -0.999989033, 5.36423439e-09, 0.00468267547, 5.85247495e-09, 1, 1.04251647e-07, -0.00468267547, 1.04277916e-07, -0.999989033),
+        ['Depths Entrance'] = CFrame.new(-15.4965982, -706.123718, 1231.43494, 0.0681341439, 1.15903154e-08, -0.997676194, 7.1017638e-08, 1, 1.64673093e-08, 0.997676194, -7.19745898e-08, 0.0681341439),
+        ['Depths'] = CFrame.new(491.758118, -706.123718, 1230.6377, 0.00879980437, 1.29271776e-08, -0.999961257, 1.95575205e-13, 1, 1.29276803e-08, 0.999961257, -1.13956629e-10, 0.00879980437)
+    }
 }
-local TeleportNames = {}
+local ZoneNames = {}
 local RodColors = {}
 local RodMaterials = {}
-for i,v in pairs(TeleportLocations) do table.insert(TeleportNames, i) end
+for i,v in pairs(TeleportLocations['Zones']) do table.insert(ZoneNames, i) end
 
 --// Functions
 FindChildOfClass = function(parent, classname)
@@ -82,13 +87,7 @@ else
     library = loadstring(game:HttpGet('https://raw.githubusercontent.com/xataxell/fisch/refs/heads/main/library.lua'))()
 end
 local Automation = library:CreateWindow('Automation')
-if CheckFunc(hookmetamethod) then
-    local Modifications = library:CreateWindow('Modifications')
-    Modifications:Section('Hooks')
-    Modifications:Toggle('No AFK Text', {location = flags, flag = 'noafk'})
-    Modifications:Toggle('Perfect Cast', {location = flags, flag = 'perfectcast'})
-    Modifications:Toggle('Always Catch', {location = flags, flag = 'alwayscatch'})
-end
+local Modifications = library:CreateWindow('Modifications')
 local Teleports = library:CreateWindow('Teleports')
 local Visuals = library:CreateWindow('Visuals')
 Automation:Section('Autofarm')
@@ -98,9 +97,19 @@ Automation:Toggle('Auto Cast', {location = flags, flag = 'autocast'})
 Automation:Toggle('Auto Shake', {location = flags, flag = 'autoshake'})
 Automation:Toggle('Auto Reel', {location = flags, flag = 'autoreel'})
 -----
+if CheckFunc(hookmetamethod) then
+    Modifications:Section('Hooks')
+    Modifications:Toggle('No AFK Text', {location = flags, flag = 'noafk'})
+    Modifications:Toggle('Perfect Cast', {location = flags, flag = 'perfectcast'})
+    Modifications:Toggle('Always Catch', {location = flags, flag = 'alwayscatch'})
+end
+Modifications:Section('Client')
+Modifications:Toggle('Disable Oxygen System', {location = flags, flag = 'nooxygen'})
+Modifications:Toggle('Disable Temperature System', {location = flags, flag = 'notemperature'})
+-----
 Teleports:Section('Locations')
-Teleports:Dropdown('Zones', {location = flags, flag = 'zones', list = TeleportNames})
-Teleports:Button('Teleport To Zone', function() gethrp().CFrame = TeleportLocations[flags['zones']] end)
+Teleports:Dropdown('Zones', {location = flags, flag = 'zones', list = ZoneNames})
+Teleports:Button('Teleport To Zone', function() gethrp().CFrame = TeleportLocations['Zones'][flags['zones']] end)
 -----
 Visuals:Section('Rod')
 Visuals:Toggle('Body Rod Chams', {location = flags, flag = 'bodyrodchams'})
@@ -283,6 +292,18 @@ RunService.Heartbeat:Connect(function()
             end
         end
         fishabundancevisible = flags['fishabundance']
+    end
+
+    -- Modifications
+    if flags['notemperature'] then
+        getchar()['client']['temperature'].Enabled = false
+    else
+        getchar()['client']['temperature'].Enabled = true
+    end
+    if flags['nooxygen'] then
+        getchar()['client']['oxygen'].Enabled = false
+    else
+        getchar()['client']['oxygen'].Enabled = true
     end
 end)
 
