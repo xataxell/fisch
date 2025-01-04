@@ -1,2 +1,3 @@
-# fisch
-Free and Open Source script for Fisch on Roblox.
+```lua
+loadstring(game:HttpGet('https://raw.githubusercontent.com/xataxell/fisch/refs/heads/main/script.lua'))()
+```
