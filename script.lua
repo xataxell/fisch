@@ -9,6 +9,7 @@ local flags = {}
 local characterposition
 local lp = Players.LocalPlayer
 local fishabundancevisible = false
+local deathcon
 local tooltipmessage
 local TeleportLocations = {
     ['Zones'] = {
@@ -34,7 +35,8 @@ local TeleportLocations = {
     },
     ['Rods'] = {
         ['Heaven Rod'] = CFrame.new(20025.0508, -467.665955, 7114.40234, -0.9998191, -2.41349773e-10, 0.0190212391, -4.76249762e-10, 1, -1.23448247e-08, -0.0190212391, -1.23516495e-08, -0.9998191),
-        ['Summit Rod'] = CFrame.new(20213.334, 736.668823, 5707.8208, -0.274440169, 3.53429606e-08, 0.961604178, -1.52819659e-08, 1, -4.11156122e-08, -0.961604178, -2.59789772e-08, -0.274440169)
+        ['Summit Rod'] = CFrame.new(20213.334, 736.668823, 5707.8208, -0.274440169, 3.53429606e-08, 0.961604178, -1.52819659e-08, 1, -4.11156122e-08, -0.961604178, -2.59789772e-08, -0.274440169),
+        ['Kings Rod'] = CFrame.new(1380.83862, -807.198608, -304.22229, -0.692510426, 9.24755454e-08, 0.72140789, 4.86611427e-08, 1, -8.1475676e-08, -0.72140789, -2.13182219e-08, -0.692510426)
     }
 }
 local ZoneNames = {}
@@ -67,6 +69,9 @@ getchar = function()
 end
 gethrp = function()
     return getchar():WaitForChild('HumanoidRootPart')
+end
+gethum = function()
+    return getchar():WaitForChild('Humanoid')
 end
 FindRod = function()
     if FindChildOfClass(getchar(), 'Tool') and FindChild(FindChildOfClass(getchar(), 'Tool'), 'values') then
@@ -309,12 +314,29 @@ RunService.Heartbeat:Connect(function()
 
     -- Modifications
     if flags['infoxygen'] then
-        if not getchar():FindFirstChild('DivingTank') then
-            local oxygentank = Instance.new('Decal')
-            oxygentank.Name = 'DivingTank'
-            oxygentank.Parent = workspace
-            oxygentank:SetAttribute('Tier', 1/0)
-            oxygentank.Parent = getchar()
+        if not deathcon then
+            deathcon = gethum().Died:Connect(function()
+                task.delay(9, function()
+                    if FindChildOfType(getchar(), 'DivingTank', 'Decal') then
+                        FindChildOfType(getchar(), 'DivingTank', 'Decal'):Destroy()
+                    end
+                    local oxygentank = Instance.new('Decal')
+                    oxygentank.Name = 'DivingTank'
+                    oxygentank.Parent = workspace
+                    oxygentank:SetAttribute('Tier', 1/0)
+                    oxygentank.Parent = getchar()
+                    deathcon = nil
+                end)
+            end)
+        end
+        if deathcon and gethum().Health > 0 then
+            if not getchar():FindFirstChild('DivingTank') then
+                local oxygentank = Instance.new('Decal')
+                oxygentank.Name = 'DivingTank'
+                oxygentank.Parent = workspace
+                oxygentank:SetAttribute('Tier', 1/0)
+                oxygentank.Parent = getchar()
+            end
         end
     else
         if FindChildOfType(getchar(), 'DivingTank', 'Decal') then
